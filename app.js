@@ -8,8 +8,9 @@ app.use(expressip().getIpInfoMiddleware);
 
 app.get("/api/hello", (req, res) => {
   const { visitor_name } = req.query;
-
-  res.send(req.ipInfo);
+  const ipAddress = req.ipInfo;
+  const visitor_ip = ipAddress.ip.split(",")[0];
+  res.send(visitor_ip);
 });
 
 // const app = http.createServer((req, res) => {
