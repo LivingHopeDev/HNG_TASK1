@@ -1,16 +1,15 @@
 const axios = require("axios");
-const getUserCity = async (ip) => {
+const getUserCityInfo = async (ip) => {
   try {
     const apiKey = process.env.API_KEY;
-    const token = process.env.TOKEN;
-
-    const response = await axios.get(`https://ipinfo.io/${ip}?token=${token}`);
-    console.log(response);
-    return response.data.city;
+    const response =
+      await axios.get(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${ip}
+`);
+    return response.data;
   } catch (error) {
     console.error("Error fetching location data:", error);
     return null;
   }
 };
-// `https://api.ipdata.co/${ip}?api-key=${apiKey}`
-module.exports = { getUserCity };
+
+https: module.exports = { getUserCityInfo };
