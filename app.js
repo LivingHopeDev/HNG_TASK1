@@ -1,16 +1,25 @@
 const express = require("express");
 require("dotenv").config();
 const expressip = require("express-ip");
+const { getUserCity } = require("./utils/getCity");
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(expressip().getIpInfoMiddleware);
 
-app.get("/api/hello", (req, res) => {
+app.get("/api/hello", async (req, res) => {
   const { visitor_name } = req.query;
   const ipAddress = req.ipInfo;
   const visitor_ip = ipAddress.ip.split(",")[0];
-  res.send(visitor_ip);
+  const city = await getUserCity(visitor_ip); //102.88.62.83   57.128.168.243
+
+  res.end(
+    JSON.stringify({
+      client_ip: visitor_ip,
+      location: city,
+      greetings: `Hello, ${visitor_name}`,
+    })
+  );
 });
 
 // const app = http.createServer((req, res) => {
