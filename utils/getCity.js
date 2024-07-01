@@ -12,4 +12,4 @@ const getUserCityInfo = async (ip) => {
   }
 };
 
-https: module.exports = { getUserCityInfo };
+module.exports = { getUserCityInfo };

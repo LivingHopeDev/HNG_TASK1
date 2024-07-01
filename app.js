@@ -17,6 +17,10 @@ app.get("/api/hello", async (req, res) => {
     greeting: `Hello, ${visitor_name}!, the temperature is ${locationInfo?.current?.temp_c} degrees Celcius in ${locationInfo?.location?.name}`,
   });
 });
+// Handles non existent routes
+app.all("*", (req, res) => {
+  res.status(404).send({ error: "Route not found" });
+});
 
 app.listen(port, () => {
   console.log("App running on http://localhost:" + port);
